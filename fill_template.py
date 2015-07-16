@@ -3,7 +3,7 @@
 '''Run with the name of the data file as the first (and only) argument
 get filled templates'''
 
-from string import Template
+from string import Template, whitespace
 from sys import argv
 from csv import reader
 
@@ -15,6 +15,7 @@ with open(argv[1]) as response_file:
     next(response_file)
 
     for line in reader(response_file):
+        line = [item.strip(',-./:' + whitespace) for item in line]
         filled = t.substitute(time=line[2], service=line[1],
                               harm_reduction=line[4], footprint=line[5],
                               equanimity=line[7],
