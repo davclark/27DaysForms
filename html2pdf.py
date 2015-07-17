@@ -21,7 +21,8 @@ web.setUrl(QUrl.fromLocalFile(full_path))
 printer = QPrinter()
 printer.setPageSize(QPrinter.Letter)
 printer.setOutputFormat(QPrinter.PdfFormat)
-printer.setOutputFileName("file.pdf")
+basename, _ = path.splitext(argv[1])
+printer.setOutputFileName(basename + '.pdf')
 
 def convertIt():
     web.print_(printer)
