@@ -22,6 +22,7 @@ printer = QPrinter()
 printer.setPageSize(QPrinter.Letter)
 printer.setOutputFormat(QPrinter.PdfFormat)
 basename, _ = path.splitext(argv[1])
+print(basename)
 printer.setOutputFileName(basename + '.pdf')
 
 def convertIt():
