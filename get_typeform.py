@@ -4,6 +4,8 @@ from configparser import ConfigParser
 
 from requests import get
 
+# Set up and performa the request
+
 config = ConfigParser()
 config.read('secrets.ini')
 
@@ -14,6 +16,9 @@ args = {'completed': 'true',
 
 result = get(base_url, args)
 
-data = result.json()
+with open('responses/0.json', 'w') as outfile:
+    outfile.write(result.text)
 
-submit_dates = [d['metadata']['date_submit'] for d in data['responses']]
+# data = result.json()
+
+# submit_dates = [d['metadata']['date_submit'] for d in data['responses']]
