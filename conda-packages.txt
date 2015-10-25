@@ -1,0 +1,7 @@
+# This file may be used to create an environment using:
+# $ conda create --name <env> --file <this file>
+# platform: osx-64
+# You'll also need to add a conda channel with pyqt5 - google it!
+
+pyqt5=5.4.1=py34_0
+requests=2.8.1=py34_0
