@@ -20,8 +20,6 @@ from PyQt5.QtWebKitWidgets import QWebPage
 
 class PrintHTML(QWebPage):
 
-    # Note sure if parent is necessary - got it from
-    # https://gist.github.com/gciotta/7766803
     def __init__(self, infile, outfile):
         super(PrintHTML, self).__init__()
         url = QUrl.fromLocalFile(infile)
