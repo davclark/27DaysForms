@@ -1,7 +1,9 @@
 # This file may be used to create an environment using:
-# $ conda create --name <env> --file <this file>
+# $ conda create -c mmcauliffe --name <env> --file <this file>
 # platform: osx-64
 # You'll also need to add a conda channel with pyqt5 - google it!
 
+# I don't know how to specify a channel, so for now, you need to add the -c
+# mmcauliffe in the command (as specified above)
 pyqt5=5.4.1=py34_0
 requests=2.8.1=py34_0
