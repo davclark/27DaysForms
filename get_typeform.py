@@ -9,7 +9,7 @@ from requests import get
 config = ConfigParser()
 config.read('secrets.ini')
 
-base_url = 'https://api.typeform.com/v0/form/' + config['TypeForm']['UID']
+base_url = 'https://api.typeform.com/v1/form/' + config['TypeForm']['UID']
 args = {'completed': 'true',
         'key': config['TypeForm']['key'],
         }
