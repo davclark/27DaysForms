@@ -25,19 +25,6 @@ field_map = {'textfield_18665036': 'name',
              'textarea_18665049': 'personal',
              }
 
-# To keep track of types
-old_field_map = {'textfield_14892155': 'service',
-                 'textarea_14892160': 'time',
-                 'list_14892158_choice': 'harm_reduction',
-                 'textarea_14892161': 'footprint',
-                 'textarea_14892162': 'equanimity',
-                 'textarea_14892163': 'fearlessness',
-                 'textfield_14892156': 'stillness',
-                 'textarea_14892164': 'practice',
-                 'textarea_14892165': 'personal',
-                 'textfield_14892152': 'name',
-                 }
-
 
 # Process our responses
 
