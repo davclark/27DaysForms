@@ -4,8 +4,9 @@
 
 INSTALLATION
 
-You need Anaconda installed. Get the miniconda installer here, and choose the
-3.5 (or later) version:
+You need Anaconda installed, or if you really insist on using python / pip /
+etc. you can probably just figure it out. Get the miniconda installer here, and
+choose the 3.5 (or later) version:
 
     https://conda.io/miniconda.html
 
