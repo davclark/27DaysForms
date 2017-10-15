@@ -20,10 +20,10 @@ in_path = path.abspath(argv[1])
 basename, _ = path.splitext(path.basename(argv[1]))
 outfile = 'pdf_forms/' + basename + '.pdf'
 
-# The below could be made into a class, but I am totally done messing with Qt for now...
-
 # Fire up Qt
 app = QApplication(argv)
+
+# The below could be made into a class, but I am totally done messing with Qt for now...
 
 # This doesn't open up a GUI on Windows at least
 web = QWebEnginePage()
@@ -36,12 +36,15 @@ printer.setOutputFormat(QPrinter.PdfFormat)
 printer.setOutputFileName(outfile)
 
 def done(result):
+    if result:
+        print('printed:', printer.outputFileName())
+    else:
+        print('failed:', printer.outputFileName())
     app.quit()
 
 # We are being quite lazy here - referencing variables in the containing scope
 def convertIt():
     web.print(printer, done)
-    print('printed:', printer.outputFileName())
     # QApplication.exit()
 
 # This sets up a chain of callbacks that should lead to a clean exit
