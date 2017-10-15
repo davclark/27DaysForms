@@ -12,8 +12,11 @@ fill2pdf: fill pdf ;
 
 all: get fill pdf ;
 
+test:
+	python -c "import os; print(os.environ['_'])"
+
 pdf:
-	for inf in html_forms/*.html; do ./html2pdf.py "$${inf}"; done
+	for inf in html_forms/*.html; do python ./html2pdf.py "$${inf}"; done
 
 fill: template.html
 	./fill_template.py responses/0.json

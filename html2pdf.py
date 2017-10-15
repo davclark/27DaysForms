@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-from PyQt5.QtCore import QUrl
+from sys import argv, exit
+from os import path
 
 # It'd be nice to just use QCoreApplication, but the QWebPage
 # needs to be in a GUI app
@@ -8,48 +9,42 @@ from PyQt5.QtCore import QUrl
 # sudo apt-get install xvfb
 # xvfb-run python render.py
 from PyQt5.QtWidgets import QApplication
+# I find it easier to work with QPrinter than a layout object
 from PyQt5.QtPrintSupport import QPrinter
+from PyQt5.QtCore import QUrl
+# We are now using the more recent stack, Qt WebEngine
+from PyQt5.QtWebEngineWidgets import QWebEnginePage
 
-# This is an older implementation of the Qt web stack The more recent stack is
-# the Qt WebEngine, but it's not as tightly packaged and apparently still
-# doesn't compile on Windows:
-# http://pyqt.sourceforge.net/Docs/PyQt5/introduction.html#module-PyQt5.QtWebEngineWidgets
-# For now, this is probably best if it's working (it's deprecated...)
-from PyQt5.QtWebKitWidgets import QWebPage
+# Get our paths sorted out
+in_path = path.abspath(argv[1])
+basename, _ = path.splitext(path.basename(argv[1]))
+outfile = 'pdf_forms/' + basename + '.pdf'
 
+# The below could be made into a class, but I am totally done messing with Qt for now...
 
-class PrintHTML(QWebPage):
+# Fire up Qt
+app = QApplication(argv)
 
-    def __init__(self, infile, outfile):
-        super(PrintHTML, self).__init__()
-        url = QUrl.fromLocalFile(infile)
-        self.mainFrame().setUrl(url)
+# This doesn't open up a GUI on Windows at least
+web = QWebEnginePage()
+url = QUrl.fromLocalFile(in_path)
+web.load(url)
 
-        # If you want to actually see these things
-        # self.show()
+printer = QPrinter()
+printer.setPaperSize(QPrinter.Letter)
+printer.setOutputFormat(QPrinter.PdfFormat)
+printer.setOutputFileName(outfile)
 
-        self.printer = QPrinter()
-        self.printer.setOutputFileName(outfile)
-        self.printer.setOutputFormat(QPrinter.PdfFormat)
-        self.printer.setPaperSize(QPrinter.Letter)
+def done(result):
+    app.quit()
 
-        self.loadFinished.connect(self.convertIt)
+# We are being quite lazy here - referencing variables in the containing scope
+def convertIt():
+    web.print(printer, done)
+    print('printed:', printer.outputFileName())
+    # QApplication.exit()
 
-    def convertIt(self):
-        self.mainFrame().print(self.printer)
-        print('printed:', self.printer.outputFileName())
-        QApplication.exit()
+# This sets up a chain of callbacks that should lead to a clean exit
+web.loadFinished.connect(convertIt)
 
-
-if __name__ == '__main__':
-    from sys import argv, exit
-    from os import path
-
-    in_path = path.abspath(argv[1])
-    basename, _ = path.splitext(path.basename(argv[1]))
-    outfile = 'pdf_forms/' + basename + '.pdf'
-
-    app = QApplication(argv[:-2])
-    ph = PrintHTML(in_path, outfile)
-    exit(app.exec())
-
+app.exec_()

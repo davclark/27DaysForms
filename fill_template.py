@@ -24,7 +24,7 @@ except:
 # case-insensitive matching
 field_keywords = ['service', 'specify', 'harm', # reduction!
         'footprint', 'equanimity', 'fearlessness', 'stillness',
-        'extra', 'own', 'submit']
+        'extra', 'own', 'submit', 'email']
 
 def match_col(df, keyword):
     '''Extract exactly one column matching the keyword (case-insensitive) or sys.exit(1)'''
@@ -59,3 +59,5 @@ for _, row in clean_data.iterrows():
     ofname = 'html_forms/{} {}.html'.format(row['name'], row['submit'])
     with open(ofname, 'w') as outfile:
         outfile.write(filled)
+
+clean_data[['name', 'submit', 'email']].to_csv('responses/simple_contact_info.csv')
